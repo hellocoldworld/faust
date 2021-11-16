@@ -48,9 +48,9 @@ class TableManager(Service, TableManagerT):
         self._changelog_queue = None
         self._channels = {}
         self._changelogs = {}
-        self._tables_finalized = asyncio.Event(loop=self.loop)
-        self._tables_registered = asyncio.Event(loop=self.loop)
-        self._recovery_started = asyncio.Event(loop=self.loop)
+        self._tables_finalized = asyncio.Event()
+        self._tables_registered = asyncio.Event()
+        self._recovery_started = asyncio.Event()
 
         self.actives_ready = False
         self.standbys_ready = False

@@ -137,7 +137,7 @@ class Stream(StreamT[T_co], Service):
             loop=self.loop,
             clear_on_resume=True,
         )
-        self._passive_started = asyncio.Event(loop=self.loop)
+        self._passive_started = asyncio.Event()
         self.join_strategy = join_strategy
         self.combined = combined if combined is not None else []
         self.concurrency_index = concurrency_index
@@ -318,8 +318,8 @@ class Stream(StreamT[T_co], Service):
         buffer_add = buffer.append
         event_add = events.append
         buffer_size = buffer.__len__
-        buffer_full = asyncio.Event(loop=self.loop)
-        buffer_consumed = asyncio.Event(loop=self.loop)
+        buffer_full = asyncio.Event()
+        buffer_consumed = asyncio.Event()
         timeout = want_seconds(within) if within else None
         stream_enable_acks: bool = self.enable_acks
 
@@ -419,8 +419,8 @@ class Stream(StreamT[T_co], Service):
         buffer_add = buffer.append
         event_add = events.append
         buffer_size = buffer.__len__
-        buffer_full = asyncio.Event(loop=self.loop)
-        buffer_consumed = asyncio.Event(loop=self.loop)
+        buffer_full = asyncio.Event()
+        buffer_consumed = asyncio.Event()
         timeout = want_seconds(within) if within else None
         stream_enable_acks: bool = self.enable_acks
 
