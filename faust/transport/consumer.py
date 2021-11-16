@@ -785,7 +785,7 @@ class Consumer(Service, ConsumerT):
         self._waiting_for_ack = asyncio.Future(loop=self.loop)
         try:
             # wait for `ack()` to wake us up
-            await asyncio.wait_for(self._waiting_for_ack, loop=self.loop, timeout=1)
+            await asyncio.wait_for(self._waiting_for_ack, timeout=1)
         except (asyncio.TimeoutError, asyncio.CancelledError):  # pragma: no cover
             pass
         finally:
@@ -1297,7 +1297,7 @@ class ThreadDelegateConsumer(Consumer):
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
-        self._method_queue = MethodQueue(loop=self.loop, beacon=self.beacon)
+        self._method_queue = MethodQueue(beacon=self.beacon)
         self.add_dependency(self._method_queue)
         self._thread = self._new_consumer_thread()
         self.add_dependency(self._thread)

@@ -134,7 +134,6 @@ class Stream(StreamT[T_co], Service):
         self.channel = channel
         self.outbox = self.app.FlowControlQueue(
             maxsize=self.app.conf.stream_buffer_maxsize,
-            loop=self.loop,
             clear_on_resume=True,
         )
         self._passive_started = asyncio.Event()
@@ -592,7 +591,6 @@ class Stream(StreamT[T_co], Service):
         async def echoing(value: T) -> T:
             await asyncio.wait(
                 [maybe_forward(value, channel) for channel in _channels],
-                loop=self.loop,
                 return_when=asyncio.ALL_COMPLETED,
             )
             return value
@@ -950,7 +948,7 @@ class Stream(StreamT[T_co], Service):
                 value: Any = None
                 # we iterate until on_merge gives value.
                 while value is None and event is None:
-                    await sleep(0, loop=loop)
+                    await sleep(0)
                     # get message from channel
                     # This inlines ThrowableQueue.get for performance:
                     # We selectively call `await Q.put`/`Q.put_nowait`,

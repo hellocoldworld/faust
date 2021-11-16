@@ -1817,7 +1817,6 @@ class App(AppT, Service):
         maxsize: int = None,
         *,
         clear_on_resume: bool = False,
-        loop: asyncio.AbstractEventLoop = None,
     ) -> ThrowableQueue:
         """Like :class:`asyncio.Queue`, but can be suspended/resumed."""
         return ThrowableQueue(
