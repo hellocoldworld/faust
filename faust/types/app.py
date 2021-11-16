@@ -570,7 +570,7 @@ class AppT(ServiceT):
     @cached_property
     @abc.abstractmethod
     def flow_control(self) -> FlowControlEvent:
-        return FlowControlEvent(loop=self.loop)
+        return FlowControlEvent()
 
     @property
     @abc.abstractmethod

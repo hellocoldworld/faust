@@ -1823,8 +1823,7 @@ class App(AppT, Service):
         return ThrowableQueue(
             maxsize=maxsize,
             flow_control=self.flow_control,
-            clear_on_resume=clear_on_resume,
-            loop=loop or self.loop,
+            clear_on_resume=clear_on_resume
         )
 
     def Worker(self, **kwargs: Any) -> _Worker:
@@ -2036,7 +2035,7 @@ class App(AppT, Service):
         This object controls flow into stream queues,
         and can also clear all buffers.
         """
-        return FlowControlEvent(loop=self.loop)
+        return FlowControlEvent()
 
     @property
     def http_client(self) -> HttpClientT:
